@@ -1,13 +1,20 @@
 <div id="app">
+  <h1>{{name}}</h1>
   <h1>Hello {{name}}</h1>
-  <!-- {{ }} 用于输出对象属性和函数返回值 -->
-  <h1>{{details()}}</h1>
+  <h1>{{firstName + lastName}}</h1>
+  <h1>{{firstName + ' ' + lastName}}</h1>
+  <h1>{{firstName}} {{lastName}}</h1>
+  <h1>{{count * 2}}</h1>
+  <h1>{{details().message}}</h1>
 </div>
 
 <script src="../js/Vue.js"></script>
 <script type="text/javascript">
   var data = {
     name: "Vuejs",
+    firstName: "zhaojiang",
+    lastName: "sun",
+    count: 1,
   };
   var vue = new Vue({
     // Vue 的 options 配置
@@ -16,15 +23,8 @@
     methods: {
       // 用于定义的方法，可以通过 return 来返回函数值
       details: function () {
-        return "你好，vue";
+        return { message: "你好，vue" };
       },
     },
   });
-
-  document.write("vue.$data === data : " + (vue.$data === data)); // true
-  document.write("<br>");
-  document.write(
-    "vue.$el === document.getElementById('app') : " +
-      (vue.$el === document.getElementById("app"))
-  ); // true
 </script>
