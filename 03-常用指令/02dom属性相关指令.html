@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <img v-bind:src="imgUrl" />
+        <br />
+        <a :href="aHref">百度超链接</a>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+        var data = {
+            imgUrl: 'https://segmentfault.com/img/bVbrfsx',
+            aHref: "http://www.baidu.com"
+        };
+        var vue = new Vue({
+            el: "#app",
+            data: data
+        });
+    </script>
+</body>
+
+</html>
