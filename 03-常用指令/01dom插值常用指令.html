@@ -1,28 +1,33 @@
 <div id="app">
-    <h1 v-once>name 是：{{name}}，因为用了指令 v-once，所以渲染一次后，不会再随着 data 数据改变而改变，F12 console 中 vue.name = 'haha'，也不会改变</h1>
-    <div v-html="htmlContent"></div>
-    <h1 v-pre>{{data}}，这里使用了 v-pre 指令，说明标签内的数据原样输出</h1>
-    <h1 v-text="text"></h1>
-    <h1 v-cloak>{{message}}</h1>
+  <h1 v-once>
+    name 是：{{name}}，因为用了指令 v-once，所以渲染一次后，不会再随着 data
+    数据改变而改变，F12 console 中 vue.name = 'haha'，也不会改变
+  </h1>
+  <div v-html="htmlContent"></div>
+  <h1 v-pre>{{data}}，这里使用了 v-pre 指令，说明标签内的数据原样输出</h1>
+  <h1 v-text="text"></h1>
+  <h1 v-cloak>{{message}}</h1>
 </div>
 <style>
-    [v-cloak] {
-        display: none;
-    }
+  [v-cloak] {
+    display: none;
+  }
 </style>
 <script src="../js/Vue.js"></script>
 <script type="text/javascript">
-    var data = {
-        name: "sunzj",
-        htmlContent: "<a href='http://www.baidu.com'>这是使用 v-html 自动渲染的 <a> 标签，跳转到百度</a>",
-        text: "这是使用 v-text 填充的 dom 数据，但是不够灵活，v-text 会覆盖 div 中原有的数据",
-        message: '这是消息'
-    };
-    setTimeout(function () {
-        var vue = new Vue({
-            // Vue 的 options 配置
-            el: "#app",
-            data: data, // 用于定义数据属性，vue的组件化时，data必须是一个函数
-        });
-    }, 1000)
+  var data = {
+    name: "sunzj",
+    htmlContent:
+      "<a href='http://www.baidu.com'>这是使用 v-html 自动渲染的 <a> 标签，跳转到百度</a>",
+    text:
+      "这是使用 v-text 填充的 dom 数据，但是不够灵活，v-text 会覆盖 div 中原有的数据",
+    message: "这是消息",
+  };
+  setTimeout(function () {
+    var vue = new Vue({
+      // Vue 的 options 配置
+      el: "#app",
+      data: data, // 用于定义数据属性，vue的组件化时，data必须是一个函数
+    });
+  }, 1000);
 </script>
