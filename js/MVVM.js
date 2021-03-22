@@ -35,7 +35,7 @@ class MVVM {
       },
       set(val) {
         this.$data[key] = val;
-      },
+      }
     });
   }
 
@@ -62,7 +62,7 @@ class MVVM {
           }
         }
         return true;
-      },
+      }
     };
 
     this.$data = new Proxy(data, handler);
