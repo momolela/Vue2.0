@@ -17,7 +17,7 @@ class MVVM {
     // 将 data 整个对象进行代理
     this._Observe(this.$data);
 
-    this.list.push("100");
+    this.list.push('100');
 
     console.log(this.list);
 
@@ -45,7 +45,7 @@ class MVVM {
     let handler = {
       get(target, key) {
         let item = target[key];
-        if (typeof item == "object") {
+        if (typeof item == 'object') {
           return new Proxy(item, handler);
         } else {
           return item;
@@ -54,7 +54,7 @@ class MVVM {
       set(target, key, value) {
         if (target[key] !== value) {
           target[key] = value;
-          console.log("start update");
+          console.log('start update');
           if (target.__parent) {
             ths.dep.notify(ths.getParent(target).__name);
           } else {
@@ -70,8 +70,8 @@ class MVVM {
 
   setParent(datas) {
     for (let i in datas) {
-      if (typeof datas[i] === "object") {
-        if (i !== "__parent" && i !== "__proto__") {
+      if (typeof datas[i] === 'object') {
+        if (i !== '__parent' && i !== '__proto__') {
           datas[i].__parent = datas;
           datas[i].__name = i;
           this.setParent(datas[i]);
