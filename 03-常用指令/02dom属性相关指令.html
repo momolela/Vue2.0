@@ -2,14 +2,30 @@
 <html>
   <head>
     <title></title>
-    <style></style>
+    <style>
+      .active {
+        color: #23aeff;
+      }
+      .line {
+        text-decoration: underline;
+      }
+    </style>
   </head>
 
   <body>
     <div id="app">
+      <!-- v-bind 动态绑定属性的值 -->
       <img v-bind:src="imgUrl" />
       <br />
+      <!-- : 是 v-bind 的语法糖 -->
       <a :href="aHref">百度超链接</a>
+      <br />
+      <!-- v-bind 动态绑定 class（对象语法），这里 title 和 v-bind 会合并 -->
+      <div class="title" :class="{active: isActive, line: isLine}">v-bind 动态绑定 class（对象语法）</div>
+      <br />
+      <!-- v-bind 动态绑定 class（数组语法），这里 title 和 v-bind 会合并 -->
+      <div class="title" :class="['active', 'line']">v-bind 动态绑定 class（数组语法）</div>
+      <br />
     </div>
 
     <script src="../js/Vue.js"></script>
@@ -17,10 +33,12 @@
       var data = {
         imgUrl: 'https://segmentfault.com/img/bVbrfsx',
         aHref: 'http://www.baidu.com',
+        isActive: true,
+        isLine: false
       };
       var vue = new Vue({
         el: '#app',
-        data: data,
+        data: data
       });
     </script>
   </body>
