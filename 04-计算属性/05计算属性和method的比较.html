@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 1、先是数据的组合，如果多个地方都要用，写很长 -->
+      <div>{{firstName + ' ' + lastName}}</div>
+      <!-- 2、通过方法调用，去获取值，但是方法调用耗性能 -->
+      <div>{{getFullName()}}</div>
+      <!-- 3、通过计算属性的方式，当响应式值变化的时候，计算属性会自动变化，不变的时候，自动返回缓存的值 -->
+      <div>{{fullName}}</div>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        firstName: 'zhaojiang',
+        lastName: 'sun'
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+          getFullName() {
+            console.log('触发了 method');
+            return this.firstName + ' ' + this.lastName;
+          }
+        },
+        computed: {
+          fullName() {
+            console.log('触发了 computed');
+            return this.firstName + ' ' + this.lastName;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

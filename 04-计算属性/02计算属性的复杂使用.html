@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>所有书的总价格：{{totalMony}}</div>
+      <br />
+      <ul>
+        <li v-for="(item) in books">书名是：{{item.name}}，有{{item.count}}本，单价是：￥{{item.price}}</li>
+      </ul>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        books: [
+          { name: '百年孤独', count: 3, price: 56 },
+          { name: '沉默是金', count: 1, price: 32 },
+          { name: '老人与海', count: 5, price: 45 },
+          { name: '海边的卡夫卡', count: 2, price: 42 }
+        ]
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        computed: {
+          totalMony() {
+            let totalMony = 0;
+            for (let book of this.books) {
+              totalMony = totalMony + book.count * book.price;
+            }
+            return totalMony;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

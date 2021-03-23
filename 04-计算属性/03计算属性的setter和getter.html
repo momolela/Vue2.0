@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div>{{fullName}}</div>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        firstName: 'zhaojiang',
+        lastName: 'sun'
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        computed: {
+          fullName: {
+            // 实际一个计算属性，分为 set 和 get 方法，但是一般 set 方法不会调用
+            get() {
+              return this.firstName + ' ' + this.lastName;
+            },
+            set(newValue) {
+              this.firstName = newValue.split(' ')[0];
+              this.lastName = newValue.split(' ')[1];
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

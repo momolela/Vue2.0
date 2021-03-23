@@ -23,8 +23,14 @@
       <!-- v-bind 动态绑定 class（对象语法），这里 title 和 v-bind 会合并 -->
       <div class="title" :class="{active: isActive, line: isLine}">v-bind 动态绑定 class（对象语法）</div>
       <br />
-      <!-- v-bind 动态绑定 class（数组语法），这里 title 和 v-bind 会合并 -->
+      <!-- v-bind 动态绑定 class（数组语法），这里 title 和 v-bind 会合并，用的很少 -->
       <div class="title" :class="['active', 'line']">v-bind 动态绑定 class（数组语法）</div>
+      <br />
+      <!-- v-bind 动态绑定 style（对象语法） -->
+      <div :style="{fontSize: '20px', 'font-size': '50px'}">v-bind 动态绑定 style（对象语法）</div>
+      <br />
+      <!-- v-bind 动态绑定 style（数组语法） -->
+      <div :style="[style1, style2]">v-bind 动态绑定 style（数组语法）</div>
       <br />
     </div>
 
@@ -34,7 +40,13 @@
         imgUrl: 'https://segmentfault.com/img/bVbrfsx',
         aHref: 'http://www.baidu.com',
         isActive: true,
-        isLine: false
+        isLine: false,
+        style1: {
+          color: '#23aeff'
+        },
+        style2: {
+          fontSize: '50px'
+        }
       };
       var vue = new Vue({
         el: '#app',
