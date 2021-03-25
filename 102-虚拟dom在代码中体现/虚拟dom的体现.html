@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-if="username">
+        <label for="username">用户名</label>
+        <input type="text" placeholder="请输入用户名" id="username" />
+        <!-- <input type="text" placeholder="请输入用户名" id="username" key="username"/> -->
+      </div>
+      <div v-else>
+        <label for="email">邮箱</label>
+        <input type="text" placeholder="请输入邮箱" id="email" />
+        <!-- <input type="text" placeholder="请输入邮箱" id="email" key="email"/> -->
+      </div>
+
+      <!--
+          1、现在用户名中输入 123
+          2、然后点击切换类型的按钮
+          3、发现虽然切到了邮箱界面，但是邮箱框中还是保留了 123
+
+          这其中就是 virtual dom 的原理
+
+          原理：
+          vue 的底层，将 app 的 dom 挂载不是直接就渲染显示，中间是先生成一个虚拟 dom （树型结构的数），然后将虚拟 dom 进行渲染
+          生成虚拟 dom 的时候，像处理这种 v-if 的 dom 元素时，其实没有对应的两份 label 和 input，只有一份；然后通过条件，选择渲染
+          然后当输入了 123，由于 input 是同一份，值也顺便渲染了，导致数据依然在
+          
+          要解决这个问题，可以像上面一样加上 key 属性去区分
+          
+          在 vue 中，vue 中在使用相同标签名元素的过渡切换时，也会使用到 key 属性，其目的也是为了让 vue 可以区分它们，否则 vue 只会替换其内部属性而不会触发过渡效果。
+          另外使用 key 来给每个节点做一个唯一标识，key 的作用主要是为了高效的更新虚拟 dom 。
+      -->
+      <button @click="username = !username">切换类型</button>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        username: true
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {}
+      });
+    </script>
+  </body>
+</html>

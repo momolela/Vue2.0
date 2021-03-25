@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <h2>{{count}}</h2>
+      <!-- 基本使用 -->
+      <button v-on:click="increament()">+</button>
+      <!-- 语法糖 -->
+      <button @click="decreament()">-</button>
+
+      <!-- 
+          v-on 的参数传递 
+      -->
+      <!-- 无参的时候，可以用 btn1click()，也可以用 btn1click -->
+      <button @click="btn1click()">按钮1</button>
+      <button @click="btn1click">按钮1</button>
+      <!-- 有参的时候，传了参，打印的就是传入的 haha -->
+      <button @click="btn2click('haha')">按钮2</button>
+      <!-- 有参的时候，没传参，打印的就是事件默认的 event 对象 -->
+      <button @click="btn2click">按钮2</button>
+      <!-- 同时传递自己的参数和事件对象参数，要用 $event -->
+      <button @click="btn3click('123',$event)">按钮3</button>
+      <!-- 不传递参数，默认 param 还是会收到 event 对象 -->
+      <button @click="btn3click">按钮3</button>
+
+      <!--
+          v-on 的修饰符
+      -->
+      <!-- 修饰符 .stop 阻止冒泡 -->
+      <div @click="divClick">
+        <button @click.stop="btnClick">stopClick</button>
+      </div>
+      <!-- 修饰符 .prevent 阻止默认事件（这里阻止了自动提交） -->
+      <form action="baidu">
+        <input type="submit" value="提交" @click.prevent="submitClick" />
+      </form>
+      <!-- keyCode | keyAlias 来监听键盘的事件 例如修饰符 .enter 代表回车 -->
+      <input type="text" @keyup.enter="keyUp" />
+      <!-- 修饰符 .natve 监听组件根元素的原生事件 -->
+      <!-- <component @click.native="cpnClick"></component> -->
+      <!-- 修饰符 .once 只触发一次事件 -->
+      <button @click.once="onceClick"></button>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        count: 0
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+          increament() {
+            this.count++;
+          },
+          decreament() {
+            this.count--;
+          },
+          btn1click() {
+            console.log('btn1click');
+          },
+          btn2click(param) {
+            console.log(parma);
+          },
+          btn3click(param, event) {
+            console.log(param);
+            console.log(event);
+          },
+          divClick() {
+            console.log('divClick');
+          },
+          btnClick() {
+            console.log('stopClick');
+          },
+          keyUp() {
+            console.log('keyUp');
+          },
+          onceClick() {
+            console.log('onceClick');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

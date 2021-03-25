@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div v-if="false">这个不会显示</div>
+      <div v-else>这个才会显示</div>
+
+      <div v-if="grade>=90">优秀</div>
+      <div v-else-if="grade>=80">良好</div>
+      <div v-else-if="grade>=60">及格</div>
+      <div v-else>不及格</div>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        grade: 99
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {}
+      });
+    </script>
+  </body>
+</html>

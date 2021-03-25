@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- v-for 遍历数组 -->
+      <ul>
+        <li v-for="(item, index) in name">遍历数组：{{(index + 1) + ' : ' + item}}</li>
+      </ul>
+
+      <!-- v-for 遍历对象 -->
+      <ul>
+        <li v-for="(value, key, index) in info">遍历对象：{{(index + 1) + ' : ' + key + ' : ' + value}}</li>
+      </ul>
+
+      <!-- v-for 遍历整数 -->
+      <ul>
+        <li v-for="n in 10">遍历整数：{{n}}</li>
+      </ul>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        name: ['sunzj', 'hufy', 'liuh'],
+        info: {
+          name: 'sunzj',
+          age: 26,
+          sex: 'male'
+        }
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {}
+      });
+    </script>
+  </body>
+</html>
