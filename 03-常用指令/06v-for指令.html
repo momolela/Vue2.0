@@ -21,6 +21,19 @@
       <ul>
         <li v-for="n in 10">遍历整数：{{n}}</li>
       </ul>
+
+      <!-- 
+        v-for 遍历使用 key，主要是为了高效的更新虚拟 dom
+
+        当需要往 name 中插入数据 momolela 的时候，会用到 Diff 算法
+        不加 key 的时候：数据结构相当于队列，要往里面加数据的时候，比如在 sunzj 后面加 momolela， Diff 算法是先将 hufy ，liuh 往后挪，然后将 momolela 插入到原来 hufy 的地方
+        加 key 的时候：数据结构相当于链表，要往里面加数据的时候，比如在 sunzj 后面加 momolela， Diff 算法会直接找到正确的位置直接插入
+
+        :key="index" 是无效的，因为不是一一对应的
+      -->
+      <ul>
+        <li v-for="(item, index) in name" :key="item">使用 key 遍历数组：{{(index + 1) + ' : ' + item}}</li>
+      </ul>
     </div>
 
     <script src="../js/Vue.js"></script>
@@ -38,6 +51,10 @@
         data: data,
         methods: {}
       });
+
+      vue.name[0] = 'haha'; // 这种修改数据的方式触发不了数据的响应式，数组的 push() pop() shift() unshift() slice() splice() sort() 等都是可是触发数据的响应式
+      vue.$set(vue.name, 0, 'szj'); // target, key, value 三个参数
+      Vue.set(vue.name, 0, 'szj'); // target, key, value 三个参数
     </script>
   </body>
 </html>

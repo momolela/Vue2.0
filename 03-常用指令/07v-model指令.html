@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- v-model 的基本使用，直接实现了数据的双向绑定，内部就是 v-bind 和 v-on 的结合使用，看如下示例 -->
+      <input type="text" v-model="message" />
+      {{message}}
+
+      <!-- 这里如果只使用 :value 只能实现数据单向绑定，:value 和 @input 一起使用，实现数据双向绑定 -->
+      <input type="text" :value="message" @input="message = $event.target.value" />
+      {{message}}
+
+      <!-- v-model 配合 radio 使用，当 v-model 绑定的值相同，可以省略 name 属性 -->
+      <label for="male">
+        <input type="radio" id="male" name="sex" value="男" v-model="sex" />
+        男
+      </label>
+      <label for="female">
+        <input type="radio" id="female" name="sex" value="女" v-model="sex" />
+        女
+      </label>
+      <h2>您选择的性别是：{{sex}}</h2>
+
+      <!-- v-model 配合 checkbox 单选框使用 -->
+      <label for="aggre">
+        <input type="checkbox" id="aggre" v-model="isAggre" />
+        同意协议
+      </label>
+
+      <!-- v-model 配合 checkbox 多选框使用 -->
+      <input type="checkbox" value="篮球" v-model="hobbies" />
+      篮球
+      <input type="checkbox" value="乒乓球" v-model="hobbies" />
+      乒乓球
+      <input type="checkbox" value="足球" v-model="hobbies" />
+      足球
+      <h2>您的爱好是：{{hobbies}}</h2>
+
+      <!-- v-model 配合 select 单选使用 -->
+      <select name="abc" id="" v-model="fruit">
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="葡萄">葡萄</option>
+      </select>
+      <h2>您选择的水果是：{{fruit}}</h2>
+
+      <!-- v-model 配合 select 多选使用 -->
+      <select name="abc" id="" v-model="fruits" multiple>
+        <option value="苹果">苹果</option>
+        <option value="香蕉">香蕉</option>
+        <option value="葡萄">葡萄</option>
+      </select>
+      <h2>您选择的水果是：{{fruits}}</h2>
+
+      <!-- 值绑定，值 originHobbies 是动态获取的 -->
+      <label v-for="item in originHobbies">
+        <input type="checkbox" :value="item" :id="item" v-model="hobbies" />
+        {{item}}
+      </label>
+      <h2>您的爱好是：{{hobbies}}</h2>
+
+      <!-- v-model 的修饰符：lazy，回车或者失去焦点后，{{lazyMsg}} 才会渲染 -->
+      <input type="text" v-model.lazy="lazyMsg" />
+      {{lazyMsg}}
+
+      <!-- v-model 的修饰符：number，age 默认用 v-model 会变成 string，用了该修饰符会转成 number -->
+      <input type="number" v-model.number="age" />
+      {{age}} - {{typeof age}}
+
+      <!-- v-model 的修饰符：trim，使用该修饰符会去除两边空格 -->
+      <input type="text" v-model.trim="trimName" />
+      {{trimName}}
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      var data = {
+        message: 'sunzj',
+        sex: '男',
+        isAggre: false,
+        hobbies: [],
+        fruit: '',
+        fruits: [],
+        originHobbies: ['足球', '乒乓球', '篮球'],
+        lazyMsg: '',
+        age: 25,
+        trimName: 'sunzj '
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {}
+      });
+    </script>
+  </body>
+</html>
