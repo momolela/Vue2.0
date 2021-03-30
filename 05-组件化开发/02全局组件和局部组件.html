@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title></title>
+    <style></style>
+</head>
+
+<body>
+    <div id="app">
+        <my-cpn></my-cpn>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+        // 1、创建组件构造器对象
+        let mycpn = Vue.extend({
+            template: `<div>
+            <h2>我是自定义组件</h2>
+            <pre>
+                这是自定义组件的核心原理方式：
+                1、使用 Vue.extend 创建组件构造器对象
+                2、使用 Vue.component 注册组件
+                3、在 dom 中使用组件
+            </pre>
+            </div>
+            `
+        });
+
+        // 2、注册组件（这种方式全局组件注册）
+        // Vue.component('my-cpn', mycpn);
+        
+        // 3、在 dom 中使用组件
+
+        var data = {
+        };
+        var vue = new Vue({
+            el: '#app',
+            data: data,
+            methods: {},
+            components: { // 这种通过组件实例 vue 的属性 components 注册的组件就是局部组件
+                'my-cpn': mycpn
+            }
+        });
+    </script>
+</body>
+
+</html>
