@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn :cmovies="parentMovies"></cpn>
+    </div>
+
+    <template id="cpn">
+      <div class="template">
+        <ul>
+          <li v-for="item in cmovies">{{item}}</li>
+        </ul>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      let cpn = {
+        template: '#cpn',
+        // 这里的 cmovies 不能使用驼峰命名的方式如 cMovies
+        // 因为 dom 模板中的 v-bind 是不支持驼峰命名的，在 dom 模板中，会自动将所有大写转变为小写，这里如果用驼峰传递，传递不了数据；
+        // v-on 在 dom 模板中也不支持驼峰命名
+        // 但是如果使用字符串模板就可以使用驼峰命名了，我们 vue 的脚手架项目中的 .vue 文件使用了字符串模板，在 vue 的底层会自动将驼峰转换成 - 连接
+        // 如下就是字符串模板：
+        // Vue.component('child', {
+        //   props: ['myMessage'],
+        //   template: '<span>{{ myMessage }}</span>'
+        // })
+
+        // props: ['cmovies'],
+        // props: {
+        //   cmovies: Array
+        // },
+        props: {
+          cmovies: {
+            type: Array,
+            default: ['进击的巨人', '一人之下'],
+            require: true
+          }
+        },
+        data() {
+          return {};
+        },
+        methods: {}
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          parentMovies: ['火影忍者', '海贼王']
+        },
+        methods: {},
+        components: {
+          // 这里是字面量增强写法，相当于 'cpn': cpn
+          cpn
+        }
+      });
+    </script>
+  </body>
+</html>

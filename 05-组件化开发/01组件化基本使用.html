@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title></title>
     <style></style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <my-cpn></my-cpn>
+      <my-cpn></my-cpn>
     </div>
 
     <script src="../js/Vue.js"></script>
     <script type="text/javascript">
-        // 1、创建组件构造器对象
-        let mycpn = Vue.extend({
-            template: `<div>
+      // 1、创建组件构造器对象
+      let mycpn = Vue.extend({
+        template: `<div>
             <h2>我是自定义组件</h2>
             <pre>
                 这是自定义组件的核心原理方式：
@@ -25,21 +24,19 @@
             </pre>
             </div>
             `
-        });
+      });
 
-        // 2、注册组件
-        Vue.component('my-cpn', mycpn);
-        
-        // 3、在 dom 中使用组件
+      // 2、注册组件
+      Vue.component('my-cpn', mycpn);
 
-        var data = {
-        };
-        var vue = new Vue({
-            el: '#app',
-            data: data,
-            methods: {}
-        });
+      // 3、在 dom 中使用组件
+
+      var data = {};
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {}
+      });
     </script>
-</body>
-
+  </body>
 </html>

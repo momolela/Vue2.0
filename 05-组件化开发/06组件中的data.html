@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <my-cpn-1></my-cpn-1>
+      <my-cpn-1></my-cpn-1>
+      <my-cpn-1></my-cpn-1>
+    </div>
+
+    <template id="cpn">
+      <div>
+        <!-- 在组件里面使用 title，会报错‘未定义’，说明组件内不能使用 vue 实例的 data 数据，组件有自己的 data 数据 -->
+        <h2>{{title}}</h2>
+        <pre>
+              这是自定义组件的核心原理方式：
+              1、使用 Vue.extend 创建组件构造器对象
+              2、使用 Vue.component 注册组件
+              3、在 dom 中使用组件
+        </pre>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      // 注册一个全局组件
+      Vue.component('my-cpn-1', {
+        template: '#cpn',
+        data() {
+          // 这是组件自己存放数据的地方，这里 data 是一个函数，每次访问都会 return 一个对象数据
+          // 这里 data 必须是一个函数
+          // 如果 data 是对象，在 dom 中多次使用了组件，则返回的数据地址指向的对象是同一个，会污染数据
+          // 如果 data 是函数，在 dom 中多次使用了组件，则返回的数据地址指向的对象不是同一个
+          return {
+            title: '标题'
+          };
+        }
+      });
+
+      var data = {
+        // 这是 vue 实例的 data
+        title: '标题'
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {},
+        components: {}
+      });
+    </script>
+  </body>
+</html>
