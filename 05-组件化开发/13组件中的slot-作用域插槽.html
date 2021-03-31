@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <!-- 第一次用组件，中间不传插槽元素，在子组件中默认用 <ul><li> 循环展示子组件的数据 -->
+      <cpn></cpn>
+      <!-- 第二次用组件，我希望子组件的数据，用 * 连接数据的形式展现，但是这里是父组件，无法直接获取到子组件的数据 -->
+      <cpn>
+        <!-- 用 <template> 包裹，配合 slot="abc" slot-scope="slot" 形成作用域插槽，可以获取到子组件的数据，然后自由渲染 -->
+        <template slot="abc" slot-scope="slot">
+          <div>{{slot.data.join(' * ')}}</div>
+        </template>
+      </cpn>
+    </div>
+
+    <template id="cpn">
+      <div class="template">
+        <!-- 插槽的使用，可以自定义属性 data 将子组件的数据对外暴露 -->
+        <slot name="abc" :data="pLanguages">
+          <ul>
+            <li v-for="item in pLanguages">{{item}}</li>
+          </ul>
+        </slot>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      let cpn = {
+        template: '#cpn',
+        props: {},
+        data() {
+          return {
+            pLanguages: ['C++', 'Java', 'Go', 'python']
+          };
+        },
+        methods: {}
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+          cpn
+        }
+      });
+    </script>
+  </body>
+</html>

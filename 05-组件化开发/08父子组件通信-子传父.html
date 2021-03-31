@@ -1,62 +1,60 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <title></title>
     <style></style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div id="app">
-        <cpn :cmovies="parentMovies" @click-item="show"></cpn>
-        <h2>您点击的是：{{clickItem}}</h2>
+      <cpn :cmovies="parentMovies" @click-item="show"></cpn>
+      <h2>您点击的是：{{clickItem}}</h2>
     </div>
 
     <template id="cpn">
-        <div class="template">
-            <ul>
-                <li v-for="item in cmovies" @click="showOnParent(item)">{{item}}</li>
-            </ul>
-        </div>
+      <div class="template">
+        <ul>
+          <li v-for="item in cmovies" @click="showOnParent(item)">{{item}}</li>
+        </ul>
+      </div>
     </template>
 
     <script src="../js/Vue.js"></script>
     <script type="text/javascript">
-        let cpn = {
-            template: '#cpn',
-            props: {
-                cmovies: {
-                    type: Array,
-                    default: ['进击的巨人', '一人之下'],
-                    require: true
-                }
-            },
-            data() {
-                return {};
-            },
-            methods: {
-                showOnParent(movieName) {
-                    this.$emit('click-item', movieName); // 通过 this.$emit 自定义事件传递，将子组件的数据传递给父组件
-                }
-            }
-        };
-        // 创建 vue 实例
-        var vue = new Vue({
-            el: '#app',
-            data: {
-                parentMovies: ['火影忍者', '海贼王'],
-                clickItem: ''
-            },
-            methods: {
-                show(data) {
-                    this.clickItem = data
-                }
-            },
-            components: {
-                cpn
-            }
-        });
+      let cpn = {
+        template: '#cpn',
+        props: {
+          cmovies: {
+            type: Array,
+            default: ['进击的巨人', '一人之下'],
+            require: true
+          }
+        },
+        data() {
+          return {};
+        },
+        methods: {
+          showOnParent(movieName) {
+            this.$emit('click-item', movieName); // 通过 this.$emit 自定义事件传递，将子组件的数据传递给父组件
+          }
+        }
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          parentMovies: ['火影忍者', '海贼王'],
+          clickItem: ''
+        },
+        methods: {
+          show(data) {
+            this.clickItem = data;
+          }
+        },
+        components: {
+          cpn
+        }
+      });
     </script>
-</body>
-
+  </body>
 </html>

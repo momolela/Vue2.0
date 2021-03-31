@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn ref="childCPN"></cpn>
+    </div>
+
+    <template id="cpn">
+      <div class="template">
+        <div>我是子组件</div>
+        <button @click="invokeParentCPNMethodsAndAttr">调用父组件的方法和访问父组件的属性</button>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      let cpn = {
+        template: '#cpn',
+        props: {},
+        data() {
+          return {};
+        },
+        methods: {
+          invokeParentCPNMethodsAndAttr() {
+            console.log(this.$parent); // 通过 $parent 访问父组件对象，因为父亲只有一个所以不是一个数组
+            this.$root.print(); // 通过 $root 访问根组件，这里也是 vue，可以直接访问他里面定义的 print 方法
+            console.log(this.$parent.name);
+          }
+        }
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          name: 'sunzj'
+        },
+        methods: {
+          print() {
+            console.log('访问到了父组件的 print 方法');
+          }
+        },
+        components: {
+          cpn
+        }
+      });
+    </script>
+  </body>
+</html>

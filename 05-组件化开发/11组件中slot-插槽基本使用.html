@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn>
+        <!-- 组件标签里面的东西，都是用于插槽展示的 -->
+        <button>按钮1</button>
+      </cpn>
+      <cpn>
+        <button>按钮2</button>
+      </cpn>
+      <cpn>
+        <button>按钮3</button>
+      </cpn>
+      <cpn></cpn>
+    </div>
+
+    <template id="cpn">
+      <div class="template">
+        <!-- h2 和 p 是共性的，固定就好 -->
+        <h2>我是组件</h2>
+        <p>我是子组件</p>
+        <!-- 下面的会不同，所以做预备插槽，使得组件更具备扩展性，例如京东的导航栏用了插槽（返回可以用图片，可以用文字） -->
+        <slot>
+          <!-- 这里插槽可以设置默认，当插槽没有传进来，用这里默认的值 -->
+          <button>按钮</button>
+        </slot>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      let cpn = {
+        template: '#cpn',
+        props: {},
+        data() {
+          return {};
+        },
+        methods: {}
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+          cpn
+        }
+      });
+    </script>
+  </body>
+</html>

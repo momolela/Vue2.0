@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn>
+        <!-- 组件标签里面的东西，都是用于插槽展示的 -->
+        <!-- 通过属性 slot 指定组件模板中对应的插槽位置 -->
+        <button slot="back">返回</button>
+        <input slot="input" placeholder="请输入要搜索的内容" />
+        <span slot="text">搜索</span>
+      </cpn>
+    </div>
+
+    <template id="cpn">
+      <div class="template">
+        <!-- 通过属性 name 定义每一个插槽的名称，用于和传进来的元素对应 -->
+        <slot name="back">
+          <button>返回</button>
+        </slot>
+        <slot name="input">
+          <input />
+        </slot>
+        <slot name="text">
+          <span>搜索</span>
+        </slot>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      let cpn = {
+        template: '#cpn',
+        props: {},
+        data() {
+          return {};
+        },
+        methods: {}
+      };
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components: {
+          cpn
+        }
+      });
+    </script>
+  </body>
+</html>
