@@ -5,6 +5,9 @@ import router from './router';
 
 Vue.config.productionTip = false;
 
+// 所有组件都继承自 vue 的原型，所以在这里在 vue 的原型中加上新的属性，在所有的子组件中都会有该属性
+// Vue.prototype.name = 'sunzj';
+
 new Vue({
   el: '#app',
   router,

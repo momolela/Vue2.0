@@ -1,5 +1,14 @@
 <template>
-  <div class="aaachild2">aaachild2</div>
+  <div class="aaachild2">
+    <ul>
+      <li>aaachild2</li>
+      <li>aaachild2</li>
+      <li>aaachild2</li>
+      <li>aaachild2</li>
+      <li>aaachild2</li>
+      <li>aaachild2</li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -7,6 +16,12 @@
     name: 'aaachild2',
     data() {
       return {};
+    },
+    created() {
+      console.log('aaa/aaachild2 created');
+    },
+    destroyed() {
+      console.log('aaa/aaachild2 destroyed');
     }
   };
 </script>

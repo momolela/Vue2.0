@@ -13,12 +13,12 @@ const aaachild2 = () => import('../components/aaachild2.vue');
 const bbb = () => import('../components/bbb.vue');
 const user = () => import('../components/user.vue');
 
-// 使用导入的路由 plugin
+// 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
 
-// 对外导出的这整个对象就是 vue 组件中的 $router
-export default new Router({
-  // 这个数组里面的源数对象就是 vue 组件中的 $route
+// 对外导出的这整个对象就是 vue 组件中的 $router，绑定在 vue 的原型上了
+const router = new Router({
+  // 这个数组里面的源数对象就是 vue 组件中的 $route，绑定在 vue 的原型上了
   routes: [
     {
       path: '/',
@@ -27,7 +27,10 @@ export default new Router({
       // component: aaa
 
       // 这种写法也能跳转到 aaa，但是 URL 上有 aaa 的 hash
-      redirect: '/aaa'
+      redirect: '/aaa',
+      meta: {
+        title: 'aaa'
+      }
     },
     {
       path: '/aaa',
@@ -45,21 +48,58 @@ export default new Router({
           name: 'aaachild2',
           component: aaachild2
         }
-      ]
+      ],
+      meta: {
+        title: 'aaa'
+      }
     },
     {
       path: '/bbb',
       name: 'bbb',
-      component: bbb
+      component: bbb,
+      meta: {
+        title: 'bbb'
+      },
+      beforeEnter(to, from, next) {
+        // 这个是路由独享守卫，也就是路由独享钩子函数
+        console.log('路由独享守卫，即将进入 bbb 路由界面');
+        next();
+      }
     },
     {
       // 这个的使用就是动态路由，vue 组件中通过 $route.params.userId 可以获取
       path: '/user/:userId',
       name: 'user',
-      component: user
+      component: user,
+      meta: {
+        title: 'user'
+      }
+    },
+    {
+      path: '/user',
+      name: 'user',
+      component: user,
+      meta: {
+        title: 'user'
+      }
     }
   ],
 
   mode: 'history', // mode: 'hash', 默认是 hash 模式，会带上 #/
   linkActiveClass: 'active' // 给所有 router-link 全局组件加上默认样式
 });
+
+// 导航守卫，前置钩子函数，跳转之前
+router.beforeEach((to, from, next) => {
+  console.log('全局守卫，跳转之前');
+  document.title = to.matched[0].meta.title; // 为什么这里不是直接 to.meta.title，因为路由嵌套的时候，to.meta.title 为 undefined
+  next(); // next() 必须要执行，不调用路由会失败
+  // next('/'); // 没登录的时候跳转到首页
+  // next(false); // 没登录的时候不跳转
+});
+// 导航守卫，后置钩子函数，跳转之后
+router.afterEach((to, from) => {
+  console.log('全局守卫，跳转之后');
+});
+
+export default router;

@@ -12,7 +12,28 @@
   export default {
     name: 'aaa',
     data() {
-      return {};
+      return {
+        path: '/aaa/aaachild1'
+      };
+    },
+    created() {
+      console.log('aaa created');
+    },
+    destroyed() {
+      console.log('aaa destroyed');
+    },
+    activated() {
+      console.log('只有使用了 keep-alive 组件的时候，才会回调这个方法，在路由激活的时候调用');
+      this.$router.push(this.path).catch((err) => {
+        err;
+      });
+    },
+    deactivated() {
+      console.log('只有使用了 keep-alive 组件的时候，才会回调这个方法，在路由退出的时候调用');
+    },
+    beforeRouteLeave(to, from, next) {
+      this.path = this.$route.path;
+      next();
     }
   };
 </script>
