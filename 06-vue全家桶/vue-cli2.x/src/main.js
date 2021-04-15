@@ -2,6 +2,8 @@ import Vue from 'vue';
 import App from './App';
 // 导入 router 文件夹，会自动使用里面的 index.js 文件
 import router from './router';
+// 导入 store 文件夹，会自动使用里面的 index.js 文件
+import store from './store';
 
 Vue.config.productionTip = false;
 
@@ -10,7 +12,8 @@ Vue.config.productionTip = false;
 
 new Vue({
   el: '#app',
-  router,
+  router, // 路由
+  store, // vuex
   components: { App },
   template: '<App/>'
 });

@@ -7,11 +7,13 @@ import Router from 'vue-router';
 // import user from '@/components/user';
 
 // 路由懒加载
-const aaa = () => import('../components/aaa.vue');
-const aaachild1 = () => import('../components/aaachild1.vue');
-const aaachild2 = () => import('../components/aaachild2.vue');
-const bbb = () => import('../components/bbb.vue');
-const user = () => import('../components/user.vue');
+const aaa = () => import('../components/router/aaa.vue');
+const aaachild1 = () => import('../components/router/aaachild1.vue');
+const aaachild2 = () => import('../components/router/aaachild2.vue');
+const bbb = () => import('../components/router/bbb.vue');
+const user = () => import('../components/router/user.vue');
+
+const helloVuex = () => import('../components/vuex/helloVuex.vue');
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -81,6 +83,14 @@ const router = new Router({
       component: user,
       meta: {
         title: 'user'
+      }
+    },
+    {
+      path: '/helloVuex',
+      name: 'helloVuex',
+      component: helloVuex,
+      meta: {
+        title: 'helloVuex'
       }
     }
   ],

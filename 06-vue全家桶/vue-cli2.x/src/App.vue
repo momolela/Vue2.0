@@ -24,6 +24,8 @@
     <button @click="replaceRoute('/aaa')">replace route aaa</button>
     <button @click="replaceRoute('/bbb')">replace route bbb</button>
 
+    <router-link to="/helloVuex" tag="button" replace active-class="active">helloVuex</router-link>
+
     <!-- <router-view> 是 vue-router 中注册的一个全局组件，<router-view> 相当于一个占位，渲染组件的具体位置 -->
     <!-- 
       keep-alive 是 vue 中的一个组件 
