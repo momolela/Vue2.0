@@ -7,6 +7,7 @@ Vue.use(vuex);
 
 // 单一状态树（单一数据源），不要用很多 store
 export default new vuex.Store({
+  // vuex 支持的 modules，可以将状体划分模块
   modules: {
     all: all
   }

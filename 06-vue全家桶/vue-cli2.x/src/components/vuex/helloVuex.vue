@@ -16,6 +16,7 @@
 </template>
 
 <script>
+  import { INCREMENT } from '../../store/core/mutations-type.js';
   export default {
     name: 'helloVuex',
     data() {
@@ -23,7 +24,7 @@
     },
     methods: {
       increment() {
-        this.$store.commit('increment');
+        this.$store.commit(INCREMENT); // INCREMENT 常量名是官方推荐的做法，防止 store 里面定义，这里 commit 错，然后页面出错，所以选了常量
 
         // 可以传递简单参数过去
         // this.$store.commit('incrementParam', 8);
