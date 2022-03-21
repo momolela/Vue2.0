@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <button v-debounce="log">剁手</button>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      Vue.directive('debounce', {
+        bind() {},
+        unbind() {},
+        inserted(el, binding) {
+          let timer;
+          el.addEventListener('click', () => {
+            if (timer) {
+              clearTimeout(timer);
+            }
+            timer = setTimeout(() => {
+              binding.value();
+            }, 1000);
+          });
+        }
+      });
+
+      var data = {
+        name: 'sunzj'
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {
+          log() {
+            console.log(this.name + ' 已经剁手');
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

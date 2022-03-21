@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body style="width: 100%; height: 500px">
+    <div id="app" style="width: 100%; height: 100%">
+      <div v-drag ref="sunzj" class="sunzj" style="width: 200px; height: 200px; background-color: #eee; position: absolute; top: 10px; left: 10px">
+        <div class="header" style="width: 100%; height: 30px; background-color: #bbb"></div>
+        <div class="pointRB" v-dragwidth="$refs.sunzj" style="width: 5px; height: 5px; position: absolute; right: 0; bottom: 0; z-index: 2"></div>
+      </div>
+    </div>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      Vue.directive('drag', {
+        bind(el, binding, vnode, oldVnode) {
+          const dialogHeaderEl = el.querySelector('.header');
+          const dragDom = el;
+          dialogHeaderEl.style.cursor = 'move';
+
+          // 获取原有属性 ie dom元素.currentStyle 火狐谷歌 window.getComputedStyle(dom元素, null);
+          const sty = dragDom.currentStyle || window.getComputedStyle(dragDom, null);
+
+          dialogHeaderEl.onmousedown = (e) => {
+            // 鼠标按下，计算当前元素距离可视区的距离
+            const disX = e.clientX - dialogHeaderEl.offsetLeft;
+            const disY = e.clientY - dialogHeaderEl.offsetTop;
+
+            // 获取到的值带px 正则匹配替换
+            let styL, styT;
+
+            // 注意在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+            if (sty.left.includes('%')) {
+              styL = +document.body.clientWidth * (+sty.left.replace(/\%/g, '') / 100);
+              styT = +document.body.clientHeight * (+sty.top.replace(/\%/g, '') / 100);
+            } else {
+              styL = +sty.left.replace(/\px/g, '');
+              styT = +sty.top.replace(/\px/g, '');
+            }
+
+            document.onmousemove = function (e) {
+              // 通过事件委托，计算移动的距离
+              const l = e.clientX - disX;
+              const t = e.clientY - disY;
+
+              // 移动当前元素
+              dragDom.style.left = `${l + styL}px`;
+              dragDom.style.top = `${t + styT}px`;
+
+              // 将此时的位置传出去
+              // binding.value({x:e.pageX,y:e.pageY})
+            };
+
+            document.onmouseup = function (e) {
+              document.onmousemove = null;
+              document.onmouseup = null;
+            };
+          };
+        }
+      });
+
+      var data = {
+        name: 'sunzj'
+      };
+      var vue = new Vue({
+        el: '#app',
+        data: data,
+        methods: {},
+        directives: {
+          dragwidth: {
+            bind(el, binding, vnode, oldVnode) {
+              //   const dragDom = binding.value.$el;
+              const dragDom = document.getElementsByClassName('sunzj')[0];
+              el.style.cursor = 'se-resize';
+              el.onmousedown = (e) => {
+                // 鼠标按下，在原来页面上增加透明遮罩，防止部分元素例如iframe监听不到鼠标事件
+                const mask = document.createElement('div');
+                mask.setAttribute('style', 'position:fixed;top:0px;bottom:0px;left:0px;right:0px;background:rgba(0,0,0,0)');
+                document.body.appendChild(mask);
+                // 计算当前元素距离可视区的距离
+                const disX = e.clientX - el.offsetLeft;
+                const disY = e.clientY - el.offsetTop;
+                document.body.onmousemove = function (e) {
+                  e.preventDefault(); // 移动时禁用默认事件
+
+                  // 通过事件委托，计算移动的距离
+                  const l = e.clientX - disX;
+                  const h = e.clientY - disY;
+                  dragDom.style.width = `${l}px`;
+                  // 判断弹窗高度，防止用于拖动的点移出可视区
+                  dragDom.style.height = `${h > document.body.offsetHeight ? document.body.offsetHeight : h}px`;
+                };
+                document.body.onmouseup = function (e) {
+                  document.body.removeChild(mask); // 移除mask遮罩
+                  document.body.onmousemove = null;
+                  document.body.onmouseup = null;
+                };
+              };
+            }
+          }
+        }
+      });
+    </script>
+  </body>
+</html>
