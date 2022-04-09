@@ -6,6 +6,7 @@
   <h1>{{firstName}} {{lastName}}</h1>
   <h1>{{count * 2}}</h1>
   <h1>{{details().message}}</h1>
+  <h1>{{script}}</h1>
 </div>
 
 <script src="../js/Vue.js"></script>
@@ -15,6 +16,7 @@
     firstName: "zhaojiang",
     lastName: "sun",
     count: 1,
+    script: '<audio src/ onerror= alert(/xss/)>',
   };
   var vue = new Vue({
     // Vue 的 options 配置
