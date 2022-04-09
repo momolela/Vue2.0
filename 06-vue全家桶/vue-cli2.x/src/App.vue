@@ -10,6 +10,8 @@
     <router-link to="/aaa" tag="button" replace active-class="active">aaa</router-link>
     <router-link to="/bbb" tag="button" replace active-class="active">bbb</router-link>
 
+
+
     <!--
       to 属性能够跳转到具体的路由界面，:to="'/user/' + userId" 可以传递具体的参数到路由的目的界面，目的地界面通过 $route.params 可以获取
       to 属性可以接收对象，path 是要路由的目的地界面，query 是通过 URL 拼接参数的形式传递参数到目的地界面，目的地界面通过 $route.query 可以获取
@@ -18,13 +20,21 @@
     <router-link :to="{ path: '/user', query: { userId: userId } }" tag="button" replace active-class="active">to user query 传参</router-link>
     <button @click="toUser()">通过 $router 传参</button>
 
+
+
     <button @click="pushRoute('/aaa')">push route aaa</button>
     <button @click="pushRoute('/bbb')">push route bbb</button>
+
+
 
     <button @click="replaceRoute('/aaa')">replace route aaa</button>
     <button @click="replaceRoute('/bbb')">replace route bbb</button>
 
+
+
     <router-link to="/helloVuex" tag="button" replace active-class="active">helloVuex</router-link>
+
+
 
     <!-- <router-view> 是 vue-router 中注册的一个全局组件，<router-view> 相当于一个占位，渲染组件的具体位置 -->
     <!-- 
