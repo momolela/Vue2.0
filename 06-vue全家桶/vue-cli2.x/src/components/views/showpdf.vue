@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="show-pdf">
     <canvas id="the-canvas"></canvas>
   </div>
 </template>
@@ -9,12 +9,13 @@
 const PDF = require('pdfjs-dist');
 import pdfjsWorker from 'pdfjs-dist/build/pdf.worker.entry';
 PDF.GlobalWorkerOptions.workerSrc = pdfjsWorker;
+
 export default {
-  name: 'Home',
+  name: 'showpdf',
   components: {},
   data() {
     return {
-     
+
     };
   },
   mounted() {
@@ -24,7 +25,7 @@ export default {
     init() {
       var loadingTask = 'https://mozilla.github.io/pdf.js/web/compressed.tracemonkey-pldi-09.pdf'
       PDF.getDocument(loadingTask).then((pdf) => {
-        pdf.getPage(1).then(function(page) {
+        pdf.getPage(1).then(function (page) {
           var viewport = page.getViewport(1.5);
           var canvas = document.getElementById('the-canvas');
           var context = canvas.getContext('2d');

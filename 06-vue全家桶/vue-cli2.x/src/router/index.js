@@ -6,16 +6,17 @@ import Router from 'vue-router';
 // import bbb from '@/components/bbb';
 // import user from '@/components/user';
 
-import home from '@/components/views/home';
-
 // 路由懒加载
 const aaa = () => import('../components/router/aaa.vue');
 const aaachild1 = () => import('../components/router/aaachild1.vue');
 const aaachild2 = () => import('../components/router/aaachild2.vue');
 const bbb = () => import('../components/router/bbb.vue');
 const user = () => import('../components/router/user.vue');
-
 const helloVuex = () => import('../components/vuex/helloVuex.vue');
+
+import showpdf from '@/components/views/showpdf';
+import virtualtable from '@/components/views/virtualtable';
+import databind from '@/components/views/databind';
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -35,10 +36,6 @@ const router = new Router({
       meta: {
         title: 'aaa'
       }
-    },
-    {
-      path: '/home',
-      component: home
     },
     {
       path: '/aaa',
@@ -98,7 +95,31 @@ const router = new Router({
       meta: {
         title: 'helloVuex'
       }
-    }
+    },
+    {
+      path: '/showpdf',
+      name: 'showpdf',
+      component: showpdf,
+      meta: {
+        title: 'showpdf'
+      }
+    },
+    {
+      path: '/virtualtable',
+      name: 'virtualtable',
+      component: virtualtable,
+      meta: {
+        title: 'virtualtable'
+      }
+    },
+    {
+      path: '/databind',
+      name: 'databind',
+      component: databind,
+      meta: {
+        title: 'databind'
+      }
+    },
   ],
 
   mode: 'history', // mode: 'hash', 默认是 hash 模式，会带上 #/
@@ -113,6 +134,7 @@ router.beforeEach((to, from, next) => {
   // next('/'); // 没登录的时候跳转到首页
   // next(false); // 没登录的时候不跳转
 });
+
 // 导航守卫，后置钩子函数，跳转之后
 router.afterEach((to, from) => {
   console.log('全局守卫，跳转之后');

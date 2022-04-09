@@ -63,11 +63,14 @@
                 },
             },
             mounted() {
+                for (let index = 0; index < 100; index++) {
+                    this.data.push(index);
+                }
                 this.updateVisibleData();
             },
             data() {
                 return {
-                    data: new Array(100).fill(1),
+                    data: [],
                     itemHeight: 30,
                     visibleData: [],
                 };
