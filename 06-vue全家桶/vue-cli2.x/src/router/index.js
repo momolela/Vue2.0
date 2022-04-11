@@ -17,6 +17,7 @@ const helloVuex = () => import('../components/vuex/helloVuex.vue');
 import showpdf from '@/components/views/showpdf';
 import virtualtable from '@/components/views/virtualtable';
 import databind from '@/components/views/databind';
+import deepclone from '@/components/views/deepclone';
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -118,6 +119,14 @@ const router = new Router({
       component: databind,
       meta: {
         title: 'databind'
+      }
+    },
+    {
+      path: '/deepclone',
+      name: 'deepclone',
+      component: deepclone,
+      meta: {
+        title: 'deepclone'
       }
     },
   ],
