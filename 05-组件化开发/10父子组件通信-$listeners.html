@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn1 :cmovies="parentMovies" :cmusics="parentMusics" @click-item-cpn1="show"></cpn1>
+      <h2>您点击的是：{{clickItem}}</h2>
+    </div>
+
+    <template id="cpn2">
+      <div class="template">
+        <ul>
+          <li v-for="item in cmusics" @click="showOnParent(item)">{{item}}</li>
+        </ul>
+      </div>
+    </template>
+
+    <template id="cpn1">
+      <div class="template">
+        <ul>
+          <li v-for="item in cmovies" @click="showOnParent(item)">{{item}}</li>
+        </ul>
+        <cpn2 :cmusics="cmusics" v-on="$listeners" @click-item-cpn2="show"></cpn2>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      // this.$listeners 的作用就是：
+      // $listeners 是组件的内置属性，它的值是父组件(不含 .native 修饰器的) v-on 事件监听器
+      // 组件可以通 过在自己的子组件上使用v-on=”$listeners”，进一步把值传给自己的子组件。如果子组件已经绑定$listener中同名的监听器，则两个监听器函数会以冒泡的方式先后执行
+
+      let cpn2 = {
+        template: '#cpn2',
+        props: ['cmusics'],
+        inheritAttrs: true, // 从父组件继承属性
+        data() {
+          return {};
+        },
+        methods: {
+          showOnParent(musicName) {
+            this.$emit('click-item-cpn2', musicName);
+          }
+        },
+        created() {
+          console.log(this.$listeners);
+        }
+      };
+
+      let cpn1 = {
+        template: '#cpn1',
+        props: ['cmovies', 'cmusics'],
+        data() {
+          return {};
+        },
+        methods: {
+          showOnParent(movieName) {
+            this.$emit('click-item-cpn1', movieName);
+          },
+          show(data) {
+            this.$emit('click-item-cpn1', data);
+          }
+        },
+        components: {
+          cpn2
+        },
+        created() {
+          console.log(this.$listeners);
+        }
+      };
+
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          parentMovies: ['火影忍者', '海贼王'],
+          parentMusics: ['青鸟', 'we are'],
+          foo: 'foo in root',
+          boo: 'boo in root',
+          clickItem: ''
+        },
+        methods: {
+          show(data) {
+            this.clickItem = data;
+          }
+        },
+        components: {
+          cpn1
+        }
+      });
+    </script>
+  </body>
+</html>

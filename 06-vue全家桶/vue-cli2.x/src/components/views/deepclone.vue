@@ -10,6 +10,7 @@ import utils from '../../lib/utils'
 const _ = require('lodash')
 
 export default {
+  name: 'deepclone',
   data() {
     return {
       data: [1, 2, 3, 4, 5]

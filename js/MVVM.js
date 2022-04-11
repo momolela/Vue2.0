@@ -5,13 +5,15 @@ class MVVM {
     this.$data = config.data;
     this.$methods = config.methods;
 
-    // 将 data 的所有属性进行数代理，返回一个对象，有 get set 方法和一些配置属性
+    // 将 data 的所有属性进行数代理，返回一个对象，有 get set 方法和一些配置属性，通过 this.xxx = this.$data.xxx
     Object.keys(this.$data).forEach((key) => {
       this.DataProxy(key);
     });
 
+    // 递归给每个 data 的数据，加上 __parent __name 属性，__parent 指向 data[key]，__name 就是data[key] 的 key
     this.setParent(this.$data);
 
+    //
     this.dep = new Dep(this.$data);
 
     // 将 data 整个对象进行代理
@@ -45,7 +47,7 @@ class MVVM {
     let handler = {
       get(target, key) {
         let item = target[key];
-        if (typeof item == 'object') {
+        if (typeof item === 'object') {
           return new Proxy(item, handler);
         } else {
           return item;
@@ -101,7 +103,7 @@ class Dep {
     this.watcherTask[key].push(new watcher(node, vm, keys, type));
   }
 
-  // 通知 watcher
+  // 通知 watcher，通知更新
   notify(key) {
     this.watcherTask[key].forEach((task) => {
       task.update();
@@ -139,3 +141,5 @@ class watcher {
     }
   }
 }
+
+class compile {}

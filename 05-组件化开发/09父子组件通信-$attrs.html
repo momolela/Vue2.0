@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <style></style>
+  </head>
+
+  <body>
+    <div id="app">
+      <cpn1 :cmovies="parentMovies" :cmusics="parentMusics" :foo="foo" :boo="boo" @click-item="show"></cpn1>
+      <h2>您点击的是：{{clickItem}}</h2>
+    </div>
+
+    <template id="cpn2">
+      <div class="template">
+        <ul>
+          <li v-for="item in cmusics" @click="showOnParent(item)">{{item}}</li>
+        </ul>
+      </div>
+    </template>
+
+    <template id="cpn1">
+      <div class="template">
+        <ul>
+          <li v-for="item in cmovies" @click="showOnParent(item)">{{item}}</li>
+        </ul>
+        <cpn2 :cmusics="cmusics" :foo="foo" :boo="boo" @click-item="show"></cpn2>
+      </div>
+    </template>
+
+    <script src="../js/Vue.js"></script>
+    <script type="text/javascript">
+      // this.$attrs 的作用就是：
+      // $attrs 只代表的是那些没有被声明为 props 的属性，如果某个 prop 被子组件中声明了（就是这个属性已经在子组件的 props 中了），在子组件中的 $attrs 会把声明的 prop 剔除。
+      // 个人理解： 一个组件在父组件中被引用，$attrs 就是组件标签上的静态属性值（attr）和动态属性值（：attr）的对象集合，这个集合不包含 class， style 和事件属性
+
+      let cpn2 = {
+        template: '#cpn2',
+        props: ['cmusics'],
+        inheritAttrs: true, // 从父组件继承属性
+        data() {
+          return {};
+        },
+        methods: {
+          showOnParent(musicName) {
+            this.$emit('click-item', musicName);
+          }
+        },
+        created() {
+          console.log(this.$attrs); // {foo: "foo in cpn1", boo: "boo in cp1"}
+        }
+      };
+
+      let cpn1 = {
+        template: '#cpn1',
+        props: ['cmovies', 'cmusics'],
+        data() {
+          return {
+            foo: 'foo in cpn1',
+            boo: 'boo in cpn1'
+          };
+        },
+        methods: {
+          showOnParent(movieName) {
+            this.$emit('click-item', movieName);
+          },
+          show(data) {
+            this.$emit('click-item', data);
+          }
+        },
+        components: {
+          cpn2
+        },
+        created() {
+          console.log(this.$attrs); // {foo: "foo in root", boo: "boo in root"}，定义在子组件中 props 的 'cmovies', 'cmusics' 不会再显示了
+        }
+      };
+
+      // 创建 vue 实例
+      var vue = new Vue({
+        el: '#app',
+        data: {
+          parentMovies: ['火影忍者', '海贼王'],
+          parentMusics: ['青鸟', 'we are'],
+          foo: 'foo in root',
+          boo: 'boo in root',
+          clickItem: ''
+        },
+        methods: {
+          show(data) {
+            this.clickItem = data;
+          }
+        },
+        components: {
+          cpn1
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -17,7 +17,9 @@
     },
     beforeRouteEnter(to, from, next) {
       console.log('组件内部守卫，进入 bbb 之前');
-      next();
+      next((vm) => {
+        console.log(vm, '组件内部守卫，进入 bbb 之前打印 vue 组件对象数据');
+      });
     },
     beforeRouteLeave(to, from, next) {
       console.log('组件内部守卫，离开 bbb 之前');

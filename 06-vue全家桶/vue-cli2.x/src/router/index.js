@@ -18,6 +18,10 @@ import showpdf from '@/components/views/showpdf';
 import virtualtable from '@/components/views/virtualtable';
 import databind from '@/components/views/databind';
 import deepclone from '@/components/views/deepclone';
+import storageA from '@/components/views/storageA';
+import storageB from '@/components/views/storageB';
+import eventbusA from '@/components/views/eventbusA';
+import eventbusB from '@/components/views/eventbusB';
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -129,6 +133,37 @@ const router = new Router({
         title: 'deepclone'
       }
     },
+    {
+      path: '/storageA',
+      name: 'storageA',
+      component: storageA,
+      meta: {
+        title: 'storageA'
+      }
+    },
+    {
+      path: '/storageB',
+      name: 'storageB',
+      component: storageB,
+      meta: {
+        title: 'storageB'
+      }
+    },
+    {
+      path: '/eventbusA',
+      name: 'eventbusA',
+      component: eventbusA,
+      children: [
+        {
+          path: 'eventbusB',
+          name: 'eventbusB',
+          component: eventbusB
+        }
+      ],
+      meta: {
+        title: 'eventbusA'
+      }
+    }
   ],
 
   mode: 'history', // mode: 'hash', 默认是 hash 模式，会带上 #/

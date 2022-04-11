@@ -24,6 +24,8 @@
     },
     methods: {
       increment() {
+        // this.$store.state.all.counter++; // 这里也可以直接修改，但是不推荐，因为这里修改跟踪不了该共享变量的改变的链路，要需要通过 mutations 修改
+
         this.$store.commit(INCREMENT); // INCREMENT 常量名是官方推荐的做法，防止 store 里面定义，这里 commit 错，然后页面出错，所以选了常量
 
         // 可以传递简单参数过去

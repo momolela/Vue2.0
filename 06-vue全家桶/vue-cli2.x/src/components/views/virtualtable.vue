@@ -17,6 +17,7 @@
  
 <script>
 export default {
+  name: 'virtualtable',
   data() {
     return {
       rowNum: 10,
