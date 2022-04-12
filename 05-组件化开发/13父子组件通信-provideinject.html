@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title></title>
+  <style></style>
+</head>
+
+<body>
+  <div id="app">
+    <cpn1 :cmovies="parentMovies" :cmusics="parentMusics" @click-item-cpn1="show"></cpn1>
+    <h2>您点击的是：{{clickItem}}</h2>
+  </div>
+
+  <template id="cpn2">
+    <div class="template">
+      <ul>
+        <li v-for="item in cmusics" @click="showOnParent(item)">{{item}}</li>
+      </ul>
+    </div>
+  </template>
+
+  <template id="cpn1">
+    <div class="template">
+      <ul>
+        <li v-for="item in cmovies" @click="showOnParent(item)">{{item}}</li>
+      </ul>
+      <cpn2 :cmusics="cmusics" v-on="$listeners" @click-item-cpn2="show"></cpn2>
+    </div>
+  </template>
+
+  <script src="../js/Vue.js"></script>
+  <script type="text/javascript">
+    // 
+    // 
+    // 
+
+    let cpn2 = {
+      template: '#cpn2',
+      props: ['cmusics'],
+      inject: ['customName', 'root'],
+      data() {
+        return {};
+      },
+      methods: {
+        showOnParent(musicName) {
+          this.$emit('click-item-cpn2', musicName);
+        }
+      },
+      mounted() {
+        console.log('通过根组件传递过来的数据 root：', this.root);
+        console.log('通过根组件传递过来的数据 customName：' + this.customName);
+      }
+    };
+
+    let cpn1 = {
+      template: '#cpn1',
+      props: ['cmovies', 'cmusics'],
+      data() {
+        return {};
+      },
+      methods: {
+        showOnParent(movieName) {
+          this.$emit('click-item-cpn1', movieName);
+        },
+        show(data) {
+          this.$emit('click-item-cpn1', data);
+        }
+      },
+      components: {
+        cpn2
+      }
+    };
+
+    // 创建 vue 实例
+    var vue = new Vue({
+      el: '#app',
+      data: {
+        parentMovies: ['火影忍者', '海贼王'],
+        parentMusics: ['青鸟', 'we are'],
+        clickItem: ''
+      },
+      methods: {
+        show(data) {
+          this.clickItem = data;
+        }
+      },
+      components: {
+        cpn1
+      },
+      provide: {
+        customName: 'hahasunzj',
+        root: this
+      }
+    });
+  </script>
+</body>
+
+</html>
