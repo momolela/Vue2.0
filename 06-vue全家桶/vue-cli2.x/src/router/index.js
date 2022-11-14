@@ -22,6 +22,7 @@ import storageA from '@/components/views/storageA';
 import storageB from '@/components/views/storageB';
 import eventbusA from '@/components/views/eventbusA';
 import eventbusB from '@/components/views/eventbusB';
+import mixin from '@/components/views/mixin';
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -163,7 +164,15 @@ const router = new Router({
       meta: {
         title: 'eventbusA'
       }
-    }
+    },
+    {
+      path: '/mixin',
+      name: 'mixin',
+      component: mixin,
+      meta: {
+        title: 'mixin'
+      }
+    },
   ],
 
   mode: 'history', // mode: 'hash', 默认是 hash 模式，会带上 #/
