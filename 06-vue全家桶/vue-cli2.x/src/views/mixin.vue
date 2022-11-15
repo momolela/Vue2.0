@@ -2,7 +2,7 @@
   <div class="container">控制台会输出：hello from mixin!</div>
 </template>
 <script>
-import myMixins from "../mixin/myMixin";
+import myMixins from "../components/mixin/myMixin";
 export default {
   name: 'mixin',
   mixins: [myMixins],

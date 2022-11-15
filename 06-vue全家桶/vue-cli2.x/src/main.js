@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import App from './App';
+import '@/request/http'
 // 导入 router 文件夹，会自动使用里面的 index.js 文件
 import router from './router';
 // 导入 store 文件夹，会自动使用里面的 index.js 文件
 import store from './store';
+import axios from './request/http'
 
 import { Table, TableColumn } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
@@ -14,6 +16,8 @@ Vue.config.productionTip = false;
 // Vue.prototype.name = 'sunzj';
 
 Vue.prototype.$EventBus = new Vue();
+
+Vue.prototype.$axios = axios;
 
 Vue.use(Table);
 Vue.use(TableColumn);

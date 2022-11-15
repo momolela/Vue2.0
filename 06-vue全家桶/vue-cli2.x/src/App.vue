@@ -48,6 +48,8 @@
 
     <router-link to="/mixin" tag="button" replace active-class="active">mixin</router-link>
 
+    <router-link to="/downloadfile" tag="button" replace active-class="active">downloadfile</router-link>
+
 
 
     <!-- <router-view> 是 vue-router 中注册的一个全局组件，<router-view> 相当于一个占位，渲染组件的具体位置 -->

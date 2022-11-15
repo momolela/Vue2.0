@@ -14,15 +14,16 @@ const bbb = () => import('../components/router/bbb.vue');
 const user = () => import('../components/router/user.vue');
 const helloVuex = () => import('../components/vuex/helloVuex.vue');
 
-import showpdf from '@/components/views/showpdf';
-import virtualtable from '@/components/views/virtualtable';
-import databind from '@/components/views/databind';
-import deepclone from '@/components/views/deepclone';
-import storageA from '@/components/views/storageA';
-import storageB from '@/components/views/storageB';
-import eventbusA from '@/components/views/eventbusA';
-import eventbusB from '@/components/views/eventbusB';
-import mixin from '@/components/views/mixin';
+import showpdf from '@/views/showpdf';
+import virtualtable from '@/views/virtualtable';
+import databind from '@/views/databind';
+import deepclone from '@/views/deepclone';
+import storageA from '@/views/storageA';
+import storageB from '@/views/storageB';
+import eventbusA from '@/views/eventbusA';
+import eventbusB from '@/views/eventbusB';
+import mixin from '@/views/mixin';
+import downloadfile from '@/views/downloadfile';
 
 // 使用导入的路由 plugin，会执行 vue-router 的 install
 Vue.use(Router);
@@ -171,6 +172,14 @@ const router = new Router({
       component: mixin,
       meta: {
         title: 'mixin'
+      }
+    },
+    {
+      path: '/downloadfile',
+      name: 'downloadfile',
+      component: downloadfile,
+      meta: {
+        title: 'downloadfile'
       }
     },
   ],
