@@ -75,7 +75,7 @@ export default {
     },
     saveFileDownload(val) {
       const saveFile = new Blob([...val.dataStream])
-      saveAs(saveFile, 'BSHIP_MDR.DMP')
+      saveAs(saveFile, '2022_创业慧康智慧医院_证明材料.docx')
       val.dataStream = []
       setTimeout(() => {
         val.progress = 0
@@ -83,7 +83,7 @@ export default {
     },
     fileDownload(config) {
       return new Promise(resolve => {
-        api.apiTest.downloadFile(config).then(res => {
+        api.apiTest.downloadFile(config, { responseType: 'blob' }).then(res => {
           resolve(res)
         })
       })

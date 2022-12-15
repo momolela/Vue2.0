@@ -45,9 +45,9 @@ const quickGet = (url) => {
     });
 }
 
-const post = (url, params) => {
+const post = (url, params, config) => {
     return new Promise((resolve, reject) => {
-        axios.post(url, params).then(res => {
+        axios.post(url, params, config).then(res => {
             resolve(res.data);
         }).catch(error => {
             reject(error);
