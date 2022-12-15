@@ -12,7 +12,7 @@ export default {
   name: 'name',
   data() {
     return {
-      byteSize: 104857600
+      byteSize: 20971
     }
   },
   methods: {
@@ -47,8 +47,9 @@ export default {
     downloadFun(i, total, val, type) {
       const requestHandle = async () => {
         const config = {
+          responseType: 'blob',
           headers: {
-            Range: `bytes=${i * this.byteSize}-${i + 1 >= total ? val.packageSize : (i + 1) * this.byteSize}`
+            Range: `bytes=${i * this.byteSize}-${i + 1 >= total ? val.packageSize : (i + 1) * this.byteSize - 1}`
           }
         }
         const context = await this.fileDownload(config)
@@ -83,7 +84,7 @@ export default {
     },
     fileDownload(config) {
       return new Promise(resolve => {
-        api.apiTest.downloadFile(config, { responseType: 'blob' }).then(res => {
+        api.apiTest.downloadFile({}, config).then(res => {
           resolve(res)
         })
       })
